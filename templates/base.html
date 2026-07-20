@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SpellingHive{% endblock %}</title>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" defer integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>SpellingHive</h1>
+    <nav>
+    </nav>
+    <section class="content">
+      Hi there, Mr. {{ ip }}!
+      <canvas id="main_canvas"></canvas>
+      <form method="GET" id="emit">
+        <input
+          type="text"
+          id="emit_data"
+          name="emit_data"
+          required
+          minlength="0"
+          maxlength="20"
+          value="send a message!"
+          size="10" />
+        <input type="submit" value="Send" />
+      </form>
+      <div id="log"><p>Log:</p></div>
+      <canvas id="main_canvas"></canvas>
+    </section>
+  </body>
+</html>
