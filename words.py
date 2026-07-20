@@ -1,5 +1,6 @@
 
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+VOWELS = 'aeiou'
 
 def load_dictionary():
     '''Load a dictionary from a file and return it as a list of strings'''
