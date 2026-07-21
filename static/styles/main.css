@@ -9,3 +9,15 @@ h1 {
   font-size: 64;
   text-align: center;
 }
+
+#word-lists-container {
+  display: flex;         /* Activates the flexbox layout engine */
+  gap: 20px;             /* Adds clean spacing between your columns */
+  width: 100%;           /* Ensures the container fills its parent space */
+}
+
+.word-list {
+  flex: 1;               /* Forces both text boxes to have equal width */
+  padding: 15px;
+  border: 1px solid #ccc;
+}

@@ -12,20 +12,27 @@
     <nav>
     </nav>
     <section class="content">
-      Hi there, Mr. {{ ip }}!
-      <canvas id="main_canvas"></canvas>
-      <form method="GET" id="emit">
-        <input
-          type="text"
-          id="emit_data"
-          name="emit_data"
-          required
-          minlength="0"
-          maxlength="20"
-          value="send a message!"
-          size="10" />
-        <input type="submit" value="Send" />
-      </form>
+      <div id="canvas_container">
+        <canvas id="main_canvas"></canvas>
+      </div>
+      <div id="controls">
+        <button id="new_game_button">Start new game</button>
+        <form id="play_word_form">
+          <input
+            type="text"
+            id="play_word_input"
+            name="play_word"
+            required
+            minlength="0"
+            maxlength="20"
+            value=""
+            size="20" />
+          <input type="submit" value="Send" />
+        </form>
+      </div>
+      <div id="letters"></div>
+      <div id="word-lists-container">
+      </div>
       <div id="log"><p>Log:</p></div>
       <canvas id="main_canvas"></canvas>
     </section>
