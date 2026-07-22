@@ -19,8 +19,7 @@ def choose_panagram(dictionary):
     return choose_pangram(dictionary)
 def extract_letters(pangram):
     '''Return a list of seven lower case letters based on the chosen pangram'''
-    theletters=list(pangram)
-    theletters=[appending for appending in pangram if appending not in theletters]
+    theletters=list(set(pangram))
     letters = theletters
     return letters
 
