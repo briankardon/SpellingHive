@@ -12,43 +12,9 @@ def load_dictionary():
     return dictionary
 def choose_pangram(dictionary):
     '''Pick a base pangram from the dictionary and return it'''
-    letter7=copy(dictionary)
-    for word in dictionary:
-        if len(word)<7:
-            letter7.remove(word)
-    fail=[]
-    for maybe in letter7:
-        letters=[]
-        for letter in list(maybe):
-            if not letter in letters:
-                letters.append(letter)
-        if len(letters)<7:
-            fail.append(maybe)
-    for failing in fail:
-        letter7.remove(failing)
-    letter7 = [item.strip() for item in letter7]
+    letter7=[word for word in dictionary if 7<len(word)<10 and len(set(word))==7]
     print('checking correct pangram...')
-    while True:
-        spellwords=[]
-        breaker=False
-        pangram=choice(letter7)
-        good=False
-        for words in dictionary:
-            for letter in words:
-                goodword=True
-                if not letter in list(pangram):
-                    goodword=False
-                    break
-            if goodword==True:
-                spellwords.append(words)
-                breaker=True
-        if len(spellwords)>0:
-            breaker=True
-        else:
-            print('oh,no!!!')
-        if breaker:
-            break
-    return pangram
+    return choice(letter7)
 def choose_panagram(dictionary):
     return choose_pangram(dictionary)
 def extract_letters(pangram):
@@ -70,7 +36,7 @@ def get_word_list(pangram, dictionary):
                 if not letter in list(pangram):
                     goodword=False
                     break
-            if goodword==True:
+            if goodword==True and len(words)>3:
                 spellwords.append(words)
                 breaker=True
         if len(spellwords)>0:
