@@ -6,7 +6,7 @@ VOWELS = 'aeiou'
 
 def load_dictionary():
     '''Load a dictionary from a file and return it as a list of strings'''
-    with open('/Users/silaskardon/Documents/english3.txt') as file:
+    with open('english3.txt') as file:
         text=file.readlines()
     dictionary = [part.strip() for part in text]
     return dictionary
