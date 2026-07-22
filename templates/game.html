@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>{% block title %}SpellingHive{% endblock %}</title>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" defer integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
   </head>
@@ -14,27 +14,26 @@
     <section class="content">
       <div id="canvas_container">
         <canvas id="main_canvas"></canvas>
+        <div id="letters"></div>
       </div>
       <div id="controls">
-        <button id="new_game_button">Start new game</button>
-        <form id="play_word_form">
-          <input
-            type="text"
-            id="play_word_input"
-            name="play_word"
-            required
-            minlength="0"
-            maxlength="20"
-            value=""
-            size="20" />
-          <input type="submit" value="Send" />
-        </form>
+        <button id="end_game_button">Start new game</button>
+        <input
+          type="text"
+          id="play_word_input"
+          name="play_word"
+          required
+          minlength="0"
+          maxlength="20"
+          value=""
+          size="20" />
       </div>
-      <div id="letters"></div>
       <div id="word-lists-container">
       </div>
-      <div id="log"><p>Log:</p></div>
-      <canvas id="main_canvas"></canvas>
+      <label for="chat_input">Chat</label>
+      <input id="chat_input" type="text" />
+      <div id="messages">
+      </div>
     </section>
   </body>
 </html>

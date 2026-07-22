@@ -31,6 +31,7 @@ class Game:
     def __init__(self, letters=None, words=None):
         self.players = {}
         self.played_words = []
+        self.started = False
         self.finished = False
         self.letters = None
         self.words = None
@@ -41,6 +42,7 @@ class Game:
         print('Letters:', self.letters)
         print('Words:', self.words)
         print('Played:', self.played_words)
+        print('Started:', self.started)
         print('Finished:', self.finished)
         print('Players:', len(self.players))
         for k, id in enumerate(self.players.keys()):
@@ -54,6 +56,7 @@ class Game:
     def reset(self, letters=None, words=None, remove_players=False):
         self.played_words = []
         self.finished = False
+        self.started = False
 
         if remove_players:
             # Delete all players
@@ -104,7 +107,9 @@ class Game:
     def play_word(self, id, word):
         message = ''
         score = 0
-        if not self.finished:
+        if not self.started:
+            message = "Game not started yet!"
+        elif not self.finished:
             try:
                 self.validate_word(word)
                 score = self.get_word_score(word)
@@ -114,6 +119,7 @@ class Game:
                 if all([w in self.played_words for w in self.words]):
                     # Game over
                     self.finished = True
+                    self.started = False
                     message = 'Game over'
                 else:
                     message = 'Word accepted'

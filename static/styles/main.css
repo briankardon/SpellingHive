@@ -1,8 +1,8 @@
 
-
 html {
   background-color: black;
   color: yellow;
+  --message-fade-time: 4s;
 }
 
 h1 {
@@ -16,8 +16,38 @@ h1 {
   width: 100%;           /* Ensures the container fills its parent space */
 }
 
+.list {
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
 .word-list {
   flex: 1;               /* Forces both text boxes to have equal width */
   padding: 15px;
   border: 1px solid #ccc;
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%
+}
+
+.message {
+  flex: 1;
+  animation: fadeOutEffect var(--message-fade-time) forwards;
+}
+
+@keyframes fadeOutEffect {
+  0% {
+    opacity: 1; /* Fully visible at the start */
+  }
+  75% {
+    opacity: 1; /* Stays visible for 75% of the time (3 seconds) */
+  }
+  100% {
+    opacity: 0; /* Smoothly fades to transparent over the last 1 second */
+    display: none; /* Optional: Hides it visually, though it still occupies space */
+  }
 }

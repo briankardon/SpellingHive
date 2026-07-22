@@ -3,12 +3,6 @@ var game_state;
 var socket;
 var my_id;
 
-function log_msg(...msg) {
-  const logEntry = document.createElement("p");
-  logEntry.textContent = msg;
-  UI.log.append(logEntry);
-}
-
 function update_game_state_display() {
   if (!game_state) {
     return;
@@ -21,7 +15,6 @@ function update_word_lists() {
   if (!game_state) {
     return;
   }
-  console.log(game_state)
   UI.word_lists_container.replaceChildren();
   const player_ids = Object.keys(game_state.players);
   for (let player_id of player_ids) {
@@ -49,21 +42,30 @@ function update_letter_display() {
   UI.letters.textContent = game_state.letters.join(' ').toUpperCase()
 }
 
+function show_message(message) {
+  const new_message = document.createElement("span");
+  new_message.textContent = message;
+  new_message.classList.add('message');
+  UI.messages.append(new_message);
+  setTimeout(
+    function() {new_message.remove()},
+    4000
+  )
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   UI.canvas = document.getElementById("main_canvas");
-  UI.canvas.width = 800;
-  UI.canvas.height = 400;
+  UI.canvas.width = 400;
+  UI.canvas.height = 200;
   UI.ctx = UI.canvas.getContext('2d');
   UI.letters = document.getElementById('letters');
   UI.word_lists_container = document.getElementById('word-lists-container');
   UI.log = document.getElementById('log');
   UI.play_word_input = document.getElementById('play_word_input');
-  UI.play_word_form = document.getElementById('play_word_form');
-  UI.broadcast_form = document.getElementById('broadcast');
-  UI.new_game_button = document.getElementById('new_game_button')
+  UI.end_game_button = document.getElementById('end_game_button');
+  UI.messages = document.getElementById('messages');
 
-  UI.new_game_button.onclick = function (event) {
-    log_msg('requesting new game');
+  UI.end_game_button.onclick = function (event) {
     socket.emit('new_game_request');
   };
 
@@ -74,10 +76,21 @@ document.addEventListener("DOMContentLoaded", function() {
     reconnectionAttempts: 10,
     reconnectionDelay: 1000
   });
-  UI.play_word_form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    socket.emit('play_word', {data: UI.play_word_input.value});
-    return false;
+
+  UI.play_word_input.addEventListener('keydown', function(event) {
+    // Check if the pressed key is "Enter"
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      socket.emit('play_word', {data: UI.play_word_input.value});
+      return false;
+    }
+  });
+  UI.chat_input.addEventListener('keydown', function(event) {
+    // Check if the pressed key is "Enter"
+    if (event.key === 'Enter') {
+      socket.emit('chat', {data: UI.chat_input.value});
+      UI.chat_input.value = '';
+    }
   });
   socket.on('letters', function(msg) {
     game_state.letters = msg.data;
@@ -86,17 +99,22 @@ document.addEventListener("DOMContentLoaded", function() {
   socket.on('update_game_state', function(msg) {
     game_state = msg['data'];
     comment = msg['comment'];
-    console.log(game_state);
-    console.log(comment);
+    show_message(comment);
     update_game_state_display()
   });
   socket.on('your_id', function(msg) {
     my_id = msg.data;
-    log_msg('got my id:', msg, msg.data)
   });
   socket.on('connect', function(msg) {
-    log_msg('connect event:', msg)
   });
+
+  socket.on('message', function(msg) {
+    show_message(msg.data);
+  });
+
+  // Request a new game from server
+  socket.emit('new_game_request');
+
   // socket.on('player_removed', function(msg) {
   //   log_msg('player_removed event:', msg)
   // });
