@@ -1,8 +1,8 @@
 from words import dictionary, generate_game_info, ALPHABET
 from functools import wraps
 
-test_pangram = 'spelling'
-test_words = ['line', 'sign', 'less', 'sell', 'single', 'else', 'seen', 'engine', 'lines', 'sense', 'selling', 'gene', 'signs', 'singles', 'sleep', 'nine', 'seeing', 'engines', 'lens', 'legs', 'penis', 'lies', 'pipe', 'pipeline', 'pine', 'pills', 'slip', 'nipples', 'pill', 'spin', 'illness', 'ieee', 'genes', 'lenses', 'pissing', 'sleeping', 'neil', 'sing', 'eggs', 'espn', 'singing', 'sees', 'piss', 'isle', 'penn', 'peeing', 'glen', 'lips', 'inns', 'signing', 'sells', 'spell', 'genesis', 'inline', 'pins', 'glenn', 'ellis', 'nipple', 'ellen', 'spelling', 'leslie', 'ping', 'issn', 'pipes', 'pens', 'spies', 'sleeps', 'spine']
+# test_pangram = 'spelling'
+# test_words = ['line', 'sign', 'less', 'sell', 'single', 'else', 'seen', 'engine', 'lines', 'sense', 'selling', 'gene', 'signs', 'singles', 'sleep', 'nine', 'seeing', 'engines', 'lens', 'legs', 'penis', 'lies', 'pipe', 'pipeline', 'pine', 'pills', 'slip', 'nipples', 'pill', 'spin', 'illness', 'ieee', 'genes', 'lenses', 'pissing', 'sleeping', 'neil', 'sing', 'eggs', 'espn', 'singing', 'sees', 'piss', 'isle', 'penn', 'peeing', 'glen', 'lips', 'inns', 'signing', 'sells', 'spell', 'genesis', 'inline', 'pins', 'glenn', 'ellis', 'nipple', 'ellen', 'spelling', 'leslie', 'ping', 'issn', 'pipes', 'pens', 'spies', 'sleeps', 'spine']
 
 class WordError(Exception):
     """Exception raised when a word is not valid."""
@@ -68,8 +68,8 @@ class Game:
                 self.players[id]['played_words'] = []
 
         if letters is None or words is None:
-            # self.game_info = generate_game_info(dictionary)
-            game_info = {'letters':'speling', 'words':test_words}
+            game_info = generate_game_info(dictionary)
+            # game_info = {'letters':'speling', 'words':test_words}
             self.letters = sorted(game_info['letters'])
             self.words = game_info['words']
         else:
