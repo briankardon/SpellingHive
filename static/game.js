@@ -3,6 +3,10 @@ var game_state;
 var socket;
 var my_id;
 
+function go_to_lobby() {
+  window.location.href = '/lobby';
+}
+
 function update_game_state_display() {
   if (!game_state) {
     return;
@@ -39,6 +43,7 @@ function update_letter_display() {
   if (!game_state) {
     return;
   }
+  console.log('updating letters:', game_state.letters);
   UI.letters.textContent = game_state.letters.join(' ').toUpperCase()
 }
 
@@ -63,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
   UI.log = document.getElementById('log');
   UI.play_word_input = document.getElementById('play_word_input');
   UI.end_game_button = document.getElementById('end_game_button');
+  UI.chat_input = document.getElementById('chat_input');
   UI.messages = document.getElementById('messages');
 
   UI.end_game_button.onclick = function (event) {
@@ -98,6 +104,12 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   socket.on('update_game_state', function(msg) {
     game_state = msg['data'];
+    if (!game_state.started) {
+      // Game hasn't started yet
+      console.log('game has not started, redirecting to lobby');
+      go_to_lobby();
+      return;
+    }
     comment = msg['comment'];
     show_message(comment);
     update_game_state_display()

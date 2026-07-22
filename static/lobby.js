@@ -5,6 +5,22 @@ var my_id;
 var html_styles
 var messageFadeTime
 
+function go_to_game() {
+  window.location.href = '/game';
+}
+
+function update_game_state_display() {
+  if (!game_state) {
+    return;
+  }
+  if (game_state.started) {
+    // Game already started
+    console.log('game already started, redirecting to game');
+    go_to_game();
+    return;
+  }
+}
+
 function show_message(message) {
   const new_message = document.createElement("span");
   new_message.textContent = message;
@@ -48,7 +64,8 @@ document.addEventListener("DOMContentLoaded", function() {
   messageFadeTime = match[1];
 
   UI.start_game_button.onclick = function (event) {
-    window.location.href = '/game'
+    console.log('requesting new game');
+    socket.emit("new_game_request", { data: "" });
   };
   UI.chat_input.addEventListener('keydown', function(event) {
     // Check if the pressed key is "Enter"
@@ -74,6 +91,10 @@ document.addEventListener("DOMContentLoaded", function() {
     reconnectionDelay: 1000
   });
 
+  socket.on('start_game', function(msg) {
+    console.log('game is starting!');
+    go_to_game();
+  });
   socket.on('update_game_state', function(msg) {
     game_state = msg['data'];
     comment = msg['comment'];

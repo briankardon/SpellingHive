@@ -53,6 +53,9 @@ class Game:
             print('  score:   ', player['score'])
             print('  words:   ', player['played_words'])
 
+    def start(self):
+        self.started = True
+
     def reset(self, letters=None, words=None, remove_players=False):
         self.played_words = []
         self.finished = False

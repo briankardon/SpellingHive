@@ -27,7 +27,7 @@ game = Game()
 
 @app.route('/')
 def home_page(**kwargs):
-    return redirect(url_for('lobby', **kwargs))
+    return redirect(url_for('lobby_page', **kwargs))
 
 @app.route('/lobby')
 def lobby_page(**kwargs):
@@ -35,18 +35,21 @@ def lobby_page(**kwargs):
 
 @app.route('/game')
 def game_page(**kwargs):
-    if not game.started:
-        redirect(url_for('lobby', **kwargs))
-    else:
-        return render_template('game.html')
+    # if not game.started:
+    #     return redirect(url_for('lobby_page', **kwargs))
+    # else:
+    return render_template('game.html')
 
 @socketio.on('new_game_request')
-def new_game():
+def new_game(message):
+    print('got new game request')
     global game
     if not game.started:
         print('New game requested')
         game.reset()
+        game.start()
         update_client_game_state()
+        emit('start_game', {'data': None}, broadcast=True)
     else:
         print('New game requested but game was already started')
 
@@ -153,4 +156,4 @@ def disconnect(reason):
     print('RX/TX: Client disconnected because:', reason)
 
 if __name__ == '__main__':
-    socketio.run(app, port=8123)
+    socketio.run(app, host='0.0.0.0', port=8123)
