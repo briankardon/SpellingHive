@@ -21,7 +21,7 @@ def extract_letters(pangram):
     '''Return a list of seven lower case letters based on the chosen pangram'''
     theletters=list(pangram)
     theletters=[appending for appending in pangram if appending not in theletters]
-    letters = ''.join(theletters)
+    letters = theletters
     return letters
 
 def get_word_list(pangram, dictionary):
@@ -70,7 +70,6 @@ def generate_game_info(dictionary):
     letters = extract_letters(pangram)
     word_list = get_word_list(pangram,dictionary)
     return {'letters':letters, 'word_list':word_list}
-
 dictionary = load_dictionary()
 panagram=choose_panagram(dictionary)
 print(panagram)
