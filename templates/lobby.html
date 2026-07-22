@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SpellingHive{% endblock %}</title>
+    <script src="{{ url_for('static', filename='lobby.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" defer integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>SpellingHive</h1>
+    <nav>
+    </nav>
+    <section class="content">
+      <div id="canvas_container">
+        <canvas id="main_canvas"></canvas>
+      </div>
+      <h2>Lobby</h2>
+      <div id="player_list" class="list"></div>
+      <div id="controls">
+        <label for="player_name_input">My name:</label>
+        <input id="player_name_input" type="text" />
+        <button id="start_game_button">Start new game</button>
+      </div>
+      <label for="chat_input">Chat</label>
+      <input id="chat_input" type="text" />
+      <div id="messages"></div>
+    </section>
+  </body>
+</html>

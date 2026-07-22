@@ -1,3 +1,4 @@
+
 from copy import copy
 from random import choice
 with open('/Users/silaskardon/Documents/english3.txt') as file:
