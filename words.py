@@ -71,6 +71,7 @@ def generate_game_info(dictionary):
     word_list = get_word_list(pangram,dictionary)
     return {'letters':letters, 'word_list':word_list}
 dictionary = load_dictionary()
-panagram=choose_panagram(dictionary)
-print(panagram)
-print(get_word_list(panagram,dictionary))
+
+if __name__ == '__main__':
+    game_info = generate_game_info(dictionary)
+    print(game_info)

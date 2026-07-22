@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
   UI.messages = document.getElementById('messages');
 
   UI.end_game_button.onclick = function (event) {
-    socket.emit('new_game_request');
+    socket.emit('new_game_request', {data: ''});
   };
 
   // var socket = io();  // Uses html server address/port
