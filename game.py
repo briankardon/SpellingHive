@@ -71,7 +71,7 @@ class Game:
             game_info = generate_game_info(dictionary)
             # game_info = {'letters':'speling', 'words':test_words}
             self.letters = sorted(game_info['letters'])
-            self.words = game_info['words']
+            self.words = game_info['word_list']
         else:
             self.letters = letters
             self.words = words
