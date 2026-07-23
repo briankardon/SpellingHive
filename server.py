@@ -67,6 +67,7 @@ def get_client_game_state():
         started = game.started,
         finished=game.finished,
         letters=game.letters,
+        required_letter=game.required_letter,
         words=game.words,
     )
 

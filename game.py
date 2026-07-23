@@ -34,6 +34,7 @@ class Game:
         self.started = False
         self.finished = False
         self.letters = None
+        self.required_letter = None
         self.words = None
         self.reset(letters=letters, words=words)
 
@@ -78,6 +79,8 @@ class Game:
         else:
             self.letters = letters
             self.words = words
+
+        self.required_letter = game_info['required_letter']
 
     @check_id_available
     def add_player(self, id, name, score=0, played_words=None):
@@ -154,6 +157,8 @@ class Game:
             raise WordError('Word ("{w}") must only use allowed letters ({L})'.format(w=word, L=self.letters))
         if word in self.played_words:
             raise WordError('Word ("{w}") already found'.format(w=word))
+        if self.required_letter not in word:
+            raise WordError('Word ("{w}") must contain the required letter ("{L}")'.format(w=word, L=self.required_letter))
 
     def is_pangram(self, word):
         return set(word) == set(self.letters)
