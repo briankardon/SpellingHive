@@ -25,6 +25,7 @@ def extract_letters(pangram):
 
 def get_word_list(pangram, dictionary):
     '''Return a full list of allowed words based on the letters'''
+    required_letter=choice(list(pangram))
     while True:
         spellwords=[]
         breaker=False
@@ -35,7 +36,7 @@ def get_word_list(pangram, dictionary):
                 if not letter in list(pangram):
                     goodword=False
                     break
-            if goodword==True and len(words)>3:
+            if goodword==True and len(words)>3 and required_letter in words:
                 spellwords.append(words)
                 breaker=True
         if len(spellwords)>0:
@@ -44,7 +45,7 @@ def get_word_list(pangram, dictionary):
             print('oh,no!!!')
         if breaker:
             break
-    return spellwords
+    return spellwords,required_letter
 
 def validate_letters(letters):
     # Check that these are 7 valid letters
@@ -62,15 +63,13 @@ def validate_letters(letters):
             'letters must all be lowercase letters, instead got '+letters
         )
     return letters
-
 def generate_game_info(dictionary):
     '''Shortcut that invokes all the functions in order'''
     pangram = choose_pangram(dictionary)
     letters = extract_letters(pangram)
-    word_list = get_word_list(pangram,dictionary)
-    return {'letters':letters, 'word_list':word_list}
+    word_list,req_letter = get_word_list(pangram,dictionary)
+    return {'letters':letters, 'word_list':word_list,'required_letter':req_letter}
 dictionary = load_dictionary()
-
 if __name__ == '__main__':
     game_info = generate_game_info(dictionary)
     print(game_info)
